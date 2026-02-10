@@ -1,61 +1,53 @@
 #include "Fixed.hpp"
 #include <iostream>
 
-// 1. Default Constructor (Varsayılan Kurucu)
-// Nesne parametresiz oluşturulduğunda çağrılır: Fixed a;
+// Fixed a;
 Fixed::Fixed()
 {
-    std::cout << "Default constructor called" << std::endl;
-    this->_fixedPointValue = 0; // Değeri 0'a eşitle
+	std::cout << "Default constructor called" << std::endl;
+	this->_fixedPointValue = 0;
 }
 
-// 2. Copy Constructor (Kopyalama Kurucusu)
 // Yeni bir nesne, var olan bir nesneden kopyalanarak oluşturulurken çağrılır: Fixed b(a);
 Fixed::Fixed(const Fixed &other)
 {
-    std::cout << "Copy constructor called" << std::endl;
-
-    // Burada "Copy Assignment Operator" fonksiyonunu çağırarak işi ona yıkıyoruz.
-    // Bu sayede kopyalama mantığını tek bir yerde (operator= içinde) tutmuş oluyoruz.
-    *this = other;
+	std::cout << "Copy constructor called" << std::endl;
+	// Burada "Copy Assignment Operator" fonksiyonunu çağırarak işi ona yıkıyoruz.
+	// Bu sayede kopyalama mantığını tek bir yerde (operator= içinde) tutmuş oluyoruz.
+	*this = other;
+	//copy assignment op olmasa da aynı şeyi yapacaktık.
+	// operator= çağırmadan, doğrudan değeri alıp koyuyoruz.
+    //this->_fixedPointValue = other.getRawBits();
 }
 
-// 3. Copy Assignment Operator (Kopyalama Atama Operatörü)
-// Zaten var olan iki nesne eşitlenirken çağrılır: b = a;
+// Zaten var olan iki nesne eşitlenirken çağrılır: b = a; Yeni nesne oluşturmuyor
 Fixed &Fixed::operator=(const Fixed &other)
 {
-    std::cout << "Copy assignment operator called" << std::endl;
 
-    // Self-Assignment Check (Kendini kendine atama kontrolü)
-    // Eğer "a = a" denilirse boşuna işlem yapma.
-    if (this != &other)
-    {
-        // Diğer nesnenin ham değerini alıp kendime yazıyorum.
-        this->_fixedPointValue = other.getRawBits();
+	std::cout << "Copy assignment operator called" << std::endl;
+	if (this != &other)
+	{
+		// Diğer nesnenin ham değerini alıp kendime yazıyorum.
+		this->_fixedPointValue = other.getRawBits();
 		this->a = other.a;
-    }
-
-    // Zincirleme atama yapabilmek için (a = b = c) nesnenin kendisini döndürüyoruz.
-    return *this;
+	}
+	// Zincirleme atama yapabilmek için (a = b = c) nesnenin kendisini döndürüyoruz
+	return (*this);
 }
 
-// 4. Destructor (Yıkıcı)
-// Nesne silinirken (scope dışına çıkarken) çağrılır.
+// Nesne silinirken scope dışına çıkarken ya da fonk sonunda çağrılır.
 Fixed::~Fixed()
 {
-    std::cout << "Destructor called" << std::endl;
+	std::cout << "Destructor called" << std::endl;
 }
-
-// --- Yardımcı Fonksiyonlar ---
 
 int Fixed::getRawBits(void) const
 {
-    std::cout << "getRawBits member function called" << std::endl;
-    return this->_fixedPointValue;
+	std::cout << "getRawBits member function called" << std::endl;
+	return (this->_fixedPointValue);
 }
 
 void Fixed::setRawBits(int const raw)
 {
-    // Bu fonksiyonda çıktı istenmemiş ama gerekirse ekleyebilirsin.
-    this->_fixedPointValue = raw;
+	this->_fixedPointValue = raw;
 }

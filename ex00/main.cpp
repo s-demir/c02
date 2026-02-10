@@ -1,19 +1,39 @@
 #include "Fixed.hpp"
 
-int main()
+int	main( void )
 {
-    Fixed fixA;
-    Fixed fixB;
-    Fixed fixC;
+	Fixed a;
+	Fixed b( a );
+	Fixed c;
 
-    fixA.a = 5;
-    fixB.a = 10;
-    fixC.a = 15;
-    fixB = fixA = fixC;
-    fixB.a = fixA.a;
-    std::cout << fixB.a << std::endl;
-    std::cout << fixA.a << std::endl;
-    std::cout << fixC.a << std::endl;
+	c = b;
 
-    return (0);
+	std::cout << a.getRawBits() << std::endl;
+	std::cout << b.getRawBits() << std::endl;
+	std::cout << c.getRawBits() << std::endl;
+
+	return (0);
 }
+
+
+
+
+
+
+// int main()
+// {
+//     Fixed fixA;
+//     Fixed fixB;
+//     Fixed fixC;
+
+//     fixA.a = 5;
+//     fixB.a = 10;
+//     fixC.a = 15;
+//     fixB = fixA = fixC;
+//     fixB.a = fixA.a;
+//     std::cout << fixB.a << std::endl;
+//     std::cout << fixA.a << std::endl;
+//     std::cout << fixC.a << std::endl;
+
+//     return (0);
+// }
