@@ -12,21 +12,19 @@ class Fixed
 
     public:
         Fixed();
-        Fixed(const int value);
-        Fixed(const float value);
-        Fixed(const Fixed& other);
+        Fixed(const int value); //intle verirsen bu
+        Fixed(const float value); //floatla verirsen bu
+        Fixed(const Fixed& other); //nesneyle çağırırsan bu
         Fixed& operator=(const Fixed& other);
         ~Fixed();
 
-        int     getRawBits( void ) const;
-        void    setRawBits( int const raw );
+        int     getRawBits(void) const;
+        void    setRawBits(int const raw);
 
-        float   toFloat( void ) const;
-        int     toInt( void ) const;
+        float   toFloat(void) const;
+        int     toInt(void) const;
 };
 
-// Sınıfın dışına global scope ekliyoruz
-// Bu sayede "std::cout << a" diyebilecez
-std::ostream & operator<<( std::ostream & o, Fixed const & i );
+std::ostream &operator<<(std::ostream &o, Fixed const &i);
 
 #endif

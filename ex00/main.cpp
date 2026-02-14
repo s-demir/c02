@@ -3,7 +3,7 @@
 int	main( void )
 {
 	Fixed a;
-	Fixed b( a );
+	Fixed b(a);
 	Fixed c;
 
 	c = b;
@@ -16,10 +16,6 @@ int	main( void )
 }
 
 
-
-
-
-
 // int main()
 // {
 //     Fixed fixA;
@@ -30,7 +26,6 @@ int	main( void )
 //     fixB.a = 10;
 //     fixC.a = 15;
 //     fixB = fixA = fixC;
-//     fixB.a = fixA.a;
 //     std::cout << fixB.a << std::endl;
 //     std::cout << fixA.a << std::endl;
 //     std::cout << fixC.a << std::endl;
