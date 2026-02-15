@@ -1,24 +1,24 @@
 #include "Fixed.hpp"
+# include <cmath>
 
 Fixed::Fixed()
 {
 	std::cout << "Default constructor called" << std::endl;
-	this->_fixedPointValue = 0;
+	this->_fixedValue = 0;
 }
 
 Fixed::Fixed(const Fixed &other)
 {
 	std::cout << "Copy constructor called" << std::endl;
-	*this = other;
+	this->_fixedValue = other.getRawBits();
 }
 
 Fixed &Fixed::operator=(const Fixed &other)
 {
-
 	std::cout << "Copy assignment operator called" << std::endl;
 	if (this != &other)
 	{
-		this->_fixedPointValue = other.getRawBits();
+		this->_fixedValue = other.getRawBits();
 	}
 	return (*this);
 }
@@ -30,46 +30,38 @@ Fixed::~Fixed()
 
 int Fixed::getRawBits(void) const
 {
-	return (this->_fixedPointValue);
+	return (this->_fixedValue);
 }
 
 void Fixed::setRawBits(int const raw)
 {
-	this->_fixedPointValue = raw;
+	this->_fixedValue = raw;
 }
-
-//şimdi. fixed point sayıyı bilgisayarın kolay tutabilmesi için zomlamak
-// zom yap 256 ile çarp int olarak sakla
-//256 yani 2^8 çünkü ikili sistem
 
 Fixed::Fixed(const int value)
 {
 	std::cout << "Int constructor called" << std::endl;
-	this->_fixedPointValue = value << _fractionalBits;
+	this->_fixedValue = value << _fractionalBits;
 }
 
-//ekrana basarken de tekrar küçültmemiz lazım
-//256yla çarpcaz ama int tipi virgül tutamaz bu yüzden roundf ile yuvarlama yap
 Fixed::Fixed(const float value)
 {
 	std::cout << "Float constructor called" << std::endl;
-	this->_fixedPointValue = (int)roundf(value * 256);
+	this->_fixedValue = (int)roundf(value * 256);
 }
 
-//çünkü int tipine çevirirken 256yla çarpmıştık
-//roundf yaptığımız için değer kaybı olacak
 float Fixed::toFloat(void) const
 {
-	return (this->_fixedPointValue / 256.0f);
+	return (this->_fixedValue / 256.0f);
 }
 
 int Fixed::toInt(void) const
 {
-	return (this->_fixedPointValue >> _fractionalBits);
+	return (this->_fixedValue >> _fractionalBits);
 }
 
-std::ostream &operator<<(std::ostream &left, Fixed const &right)
+std::ostream &operator<<(std::ostream &out, Fixed const &in)
 {
-	left << right.toFloat(); //tofloat ile zoom out yapıyourz int yerine ki veri kaybetme
-	return (left);
+	out << in.toFloat();
+	return (out);
 }
